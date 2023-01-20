@@ -1,0 +1,27 @@
+schema {
+  # Here we specify our root types. There are 3 root types in AppSync: Query,  Mutation and Subscription. Root types are the entry points into your API
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  getTodos: [Todo] # a query that returns an array of Todo objects
+}
+
+type Mutation {
+  addTodo(id: ID!, name: String, description: String, priority: Int): Todo # add a Todo with non nullible id, name, description, priority and return the Todo
+}
+
+type Todo {
+  #defining our Todo type
+  id: ID!
+  name: String
+  description: String
+  priority: Int # change the priority to an ENUM of either numbers from 1 to 5 or 3 levels - low, medium & high
+  status: TodoStatus
+}
+
+enum TodoStatus {
+  done
+  pending
+}

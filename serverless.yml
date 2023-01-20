@@ -1,0 +1,16 @@
+service: sls-appsync-todo-api
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-west-1'}
+
+plugnins:
+  - serverless-esbuild
+
+functions:
+  hello:
+    handler: handler.hello

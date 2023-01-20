@@ -1,0 +1,24 @@
+{
+  "name": "sls-appsync-todo-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FonNkwenti/sls-appsync-todo-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FonNkwenti/sls-appsync-todo-api/issues"
+  },
+  "homepage": "https://github.com/FonNkwenti/sls-appsync-todo-api#readme",
+  "devDependencies": {
+    "esbuild": "^0.16.17",
+    "serverless-esbuild": "^1.37.1"
+  }
+}
