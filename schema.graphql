@@ -5,16 +5,17 @@ schema {
 }
 
 type Query {
-  getTodos: [Todo] # a query that returns an array of Todo objects
+  listTodos: [Todo] # a query that returns an array of Todo objects
+  getTodo(todoId: ID!): Todo!
 }
 
 type Mutation {
-  addTodo(id: ID!, name: String, description: String, priority: Int): Todo # add a Todo with non nullible id, name, description, priority and return the Todo
+  addTodo(todoId: ID!, name: String, description: String, priority: Int): Todo # add a Todo with non nullible id, name, description, priority and return the Todo
 }
 
 type Todo {
   #defining our Todo type
-  id: ID!
+  todoId: ID!
   name: String
   description: String
   priority: Int # change the priority to an ENUM of either numbers from 1 to 5 or 3 levels - low, medium & high

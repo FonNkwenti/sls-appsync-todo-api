@@ -7,10 +7,66 @@ provider:
   runtime: nodejs16.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-west-1'}
+  environment:
+    DYNAMODB_TABLE_NAME: ${self:custom.TODO_TABLE}
 
-plugnins:
+plugins:
   - serverless-esbuild
+  - serverless-appsync-plugin
+
+custom:
+  TODO_TABLE: todoTable
+  esbuild:
+    bundle: true
+    minify: true
+
+appSync:
+  name: ${self:service}
+  logging:
+    level: ALL
+
+  # authenticationType: API_KEY
+  authentication:
+    type: API_KEY
+    config:
+      name: myKey
+      description: simple API Key
+      expiresAfter: 60d
+
+  dataSources:
+    todos:
+      type: AMAZON_DYNAMODB
+      config:
+        tableName: !Ref TodoTable
+
+  resolvers:
+    Query.listTodos:
+      functions:
+        - dataSource: todos
+          code: resolvers/listTodos.js
+    Query.getTodo:
+      functions:
+        - dataSource: todos
+          code: resolvers/getTodo.js
+    Mutation.addTodo:
+      functions:
+        - dataSource: todos
+          code: resolvers/addTodo.js
 
 functions:
   hello:
     handler: handler.hello
+
+resources:
+  Resources:
+    TodoTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:service}-${self:custom.TODO_TABLE}-${self:provider.stage}
+        AttributeDefinitions:
+          - AttributeName: todoID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: todoID # partition key
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

@@ -11,14 +11,19 @@
     "url": "git+https://github.com/FonNkwenti/sls-appsync-todo-api.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Fon Nkwenti",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/FonNkwenti/sls-appsync-todo-api/issues"
   },
   "homepage": "https://github.com/FonNkwenti/sls-appsync-todo-api#readme",
   "devDependencies": {
+    "@aws-appsync/eslint-plugin": "^1.0.1",
+    "@aws-appsync/utils": "^1.0.1",
     "esbuild": "^0.16.17",
+    "eslint": "^8.28.0",
+    "serverless": "^3.19.0",
+    "serverless-appsync-plugin": "^2.0.0-alpha.13",
     "serverless-esbuild": "^1.37.1"
   }
 }
