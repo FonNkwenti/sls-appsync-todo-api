@@ -15,9 +15,9 @@ export function request(ctx) {
       todoId: util.dynamodb.toDynamoDB(util.autoId()),
     },
     attributeValues: util.dynamodb.toMapValues(item),
-    // condition: {
-    //   expression: "attribute_not_exists(todoID)",
-    // },
+    condition: {
+      expression: "attribute_not_exists(todoId)",
+    },
   };
 }
 
