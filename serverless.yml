@@ -25,13 +25,11 @@ appSync:
   logging:
     level: ALL
 
-  # authenticationType: API_KEY
   authentication:
-    type: API_KEY
+    type: AMAZON_COGNITO_USER_POOLS
     config:
-      name: myKey
-      description: simple API Key
-      expiresAfter: 60d
+      userPoolId: !Ref CognitoUserPool
+      defaultAction: ALLOW
 
   dataSources:
     todos:
@@ -70,3 +68,20 @@ resources:
           - AttributeName: todoID # partition key
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
+
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: ${self:service}-user-pool-${self:provider.stage}
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        UserPoolId: !Ref CognitoUserPool
+        ClientName: ${self:service}-user-pool- client${self:provider.stage}
+        ExplicitAuthFlows:
+          - ALLOW_ADMIN_USER_PASSWORD_AUTH
+        GenerateSecret: false
