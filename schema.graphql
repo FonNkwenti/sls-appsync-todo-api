@@ -10,7 +10,12 @@ type Query {
 }
 
 type Mutation {
-  addTodo(todoId: ID!, name: String, description: String, priority: Int): Todo # add a Todo with non nullible id, name, description, priority and return the Todo
+  addTodo(
+    name: String
+    description: String
+    priority: String
+    status: String
+  ): Todo! # add a Todo with name, description, priority and return the Todo. todoId will be automatically populated by the AppSync JavaScript runtime
 }
 
 type Todo {
@@ -18,11 +23,20 @@ type Todo {
   todoId: ID!
   name: String
   description: String
-  priority: Int # change the priority to an ENUM of either numbers from 1 to 5 or 3 levels - low, medium & high
+  # priority: Int # change the priority to an ENUM of either numbers from 1 to 5 or 3 levels - low, medium & high
+  priority: Priority
   status: TodoStatus
+  createdAt: String
+  updatedAt: String
 }
 
 enum TodoStatus {
   done
   pending
+}
+
+enum Priority {
+  low
+  medium
+  high
 }

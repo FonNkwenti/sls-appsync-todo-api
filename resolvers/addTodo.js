@@ -1,11 +1,13 @@
 import { util } from "@aws-appsync/utils";
 
 export function request(ctx) {
+  console.log("logging context arguments ===", ctx.arguments);
   const item = {
-    ...ctx.args.todo,
+    ...ctx.arguments,
     createdAt: util.time.nowISO8601(),
     updatedAt: util.time.nowISO8601(),
   };
+  console.log("logging items ===", item);
 
   return {
     operation: "PutItem",

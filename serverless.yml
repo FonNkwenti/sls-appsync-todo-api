@@ -62,10 +62,10 @@ resources:
       Properties:
         TableName: ${self:service}-${self:custom.TODO_TABLE}-${self:provider.stage}
         AttributeDefinitions:
-          - AttributeName: todoID
+          - AttributeName: todoId
             AttributeType: S
         KeySchema:
-          - AttributeName: todoID # partition key
+          - AttributeName: todoId # partition key
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
 
@@ -81,7 +81,11 @@ resources:
       Type: AWS::Cognito::UserPoolClient
       Properties:
         UserPoolId: !Ref CognitoUserPool
-        ClientName: ${self:service}-user-pool- client${self:provider.stage}
-        ExplicitAuthFlows:
-          - ALLOW_ADMIN_USER_PASSWORD_AUTH
+        ClientName: ${self:service}-user-pool- client-${self:provider.stage}
+        RefreshTokenValidity: 30
         GenerateSecret: false
+  Outputs:
+    UserPoolId:
+      Value: !Ref CognitoUserPool
+    UserPoolClientId:
+      Value: !Ref CognitoUserPoolClient
