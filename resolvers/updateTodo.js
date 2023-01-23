@@ -2,12 +2,14 @@ import { util } from "@aws-appsync/utils";
 
 export function request(ctx) {
   const { todoId, ...values } = ctx.arguments;
+  console.log("ctx.arguments ===", ctx.args);
   const item = {
-    values,
+    ...values,
     updatedAt: util.time.nowISO8601(),
   };
   console.log(`logging the todoId === ${todoId}`);
   console.log(`logging the values to update === ${values}`);
+  console.log("passing item to DynamoDB ===", item);
 
   const updateExpression = [];
   const expressionNames = {};
@@ -18,6 +20,10 @@ export function request(ctx) {
     expressionNames[`#${key}`] = key;
     expressionValues[`:${key}`] = util.dynamodb.toDynamoDB(value);
   }
+  console.log("updateExpression ===", updateExpression);
+  console.log("updateExpression Joined ===", updateExpression.join(", "));
+  console.log("expressionNames ===", expressionNames);
+  console.log("expressionValues ===", expressionValues);
 
   return {
     operation: "UpdateItem",
@@ -25,7 +31,7 @@ export function request(ctx) {
       todoId: util.dynamodb.toDynamoDB(todoId),
     },
     update: {
-      expression: `set ${updateExpression.join(" ,")}`,
+      expression: `SET ${updateExpression.join(", ")}`,
       expressionNames,
       expressionValues,
     },
