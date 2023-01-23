@@ -54,6 +54,10 @@ appSync:
       functions:
         - dataSource: todos
           code: resolvers/updateTodo.js
+    Mutation.deleteTodo:
+      functions:
+        - dataSource: todos
+          code: resolvers/deleteTodo.js
 
 functions:
   hello:

@@ -1,4 +1,4 @@
-import util from "@aws-appsync/utils";
+import { util } from "@aws-appsync/utils";
 
 export function request(ctx) {
   const { todoId, ...values } = ctx.arguments;
@@ -16,13 +16,13 @@ export function request(ctx) {
   for (const [key, value] of Object.entries(item)) {
     updateExpression.push(`#${key} = :${key}`);
     expressionNames[`#${key}`] = key;
-    expressionValues[`:${key}`] = util.dynamodb.todynamoDB(value);
+    expressionValues[`:${key}`] = util.dynamodb.toDynamoDB(value);
   }
 
   return {
     operation: "UpdateItem",
     key: {
-      todoId: util.dynamodb.todynamoDB(todoId),
+      todoId: util.dynamodb.toDynamoDB(todoId),
     },
     update: {
       expression: `set ${updateExpression.join(" ,")}`,
@@ -40,7 +40,7 @@ export function request(ctx) {
 
 export function response(ctx) {
   ctx.stash.event = {
-    DetailType: "postUpdated",
+    DetailType: "todoUpdated",
     Detail: JSON.stringify(ctx.result),
   };
   return ctx.result;

@@ -22,7 +22,9 @@ type Mutation {
     description: String
     priority: String
     status: String
-  ): Todo!
+    updatedAt: AWSDateTime
+  ): Todo
+  deleteTodo(todoId: ID!): Todo
 }
 
 type Todo {
@@ -33,8 +35,8 @@ type Todo {
   # priority: Int # change the priority to an ENUM of either numbers from 1 to 5 or 3 levels - low, medium & high
   priority: Priority
   status: TodoStatus
-  createdAt: String
-  updatedAt: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
 
 enum TodoStatus {
