@@ -36,7 +36,7 @@ export function request(ctx) {
       expressionValues,
     },
     condition: {
-      expression: "attribute_exist(#todoId)",
+      expression: "attribute_exists(#todoId)",
       expressionNames: {
         "#todoId": "todoId",
       },
