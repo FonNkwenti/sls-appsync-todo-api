@@ -50,6 +50,10 @@ appSync:
       functions:
         - dataSource: todos
           code: resolvers/addTodo.js
+    Mutation.updateTodo:
+      functions:
+        - dataSource: todos
+          code: resolvers/updateTodo.js
 
 functions:
   hello:

@@ -16,6 +16,13 @@ type Mutation {
     priority: String
     status: String
   ): Todo! # add a Todo with name, description, priority and return the Todo. todoId will be automatically populated by the AppSync JavaScript runtime
+  updateTodo(
+    todoId: ID!
+    name: String
+    description: String
+    priority: String
+    status: String
+  ): Todo!
 }
 
 type Todo {
